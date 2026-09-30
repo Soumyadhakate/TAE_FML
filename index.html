@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spectral Clustering • Pattern Discovery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/style.css">
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+</head>
+<body>
+<div class="bg"></div>
+<header class="nav">
+  <div class="brand"><span class="logo">✦</span> SpectraLab</div>
+  <div class="navlinks"><a href="#workflow">Workflow</a><a href="#dashboard">Dashboard</a><button id="themeBtn">☼</button></div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="hero-copy">
+    <div class="eyebrow">Interactive Machine Learning Laboratory</div>
+    <h1>Spectral Clustering<br><span>for Pattern Discovery</span></h1>
+    <p>Discover hidden structures in your datasets using similarity graphs, graph Laplacians, eigenvectors and spectral clustering.</p>
+    <a class="primary" href="#workspace">Start discovering →</a>
+  </div>
+  <div class="hero-card">
+    <div class="orb">λ</div>
+    <div class="mini-title">GRAPH → EIGENVECTORS → CLUSTERS</div>
+    <div class="formula">L = I − D<sup>−1/2</sup>AD<sup>−1/2</sup></div>
+    <div class="chips"><span>Similarity</span><span>Eigen-Gap</span><span>Patterns</span></div>
+  </div>
+</section>
+
+<section class="cards" id="workflow">
+  <div class="info-card"><b>01 · Similarity</b><p>Measure how strongly data points are connected.</p></div>
+  <div class="info-card"><b>02 · Graph</b><p>Represent the dataset as a network of related points.</p></div>
+  <div class="info-card"><b>03 · Eigenvectors</b><p>Transform graph structure into a useful feature space.</p></div>
+  <div class="info-card"><b>04 · Discover</b><p>Separate naturally occurring groups and inspect their patterns.</p></div>
+</section>
+
+<section class="workspace" id="workspace">
+<div class="section-head"><div><div class="eyebrow">Interactive laboratory</div><h2>Upload & discover</h2></div><div class="status" id="status">Ready</div></div>
+
+<div class="grid">
+  <div class="panel upload-panel">
+    <h3>Dataset</h3>
+    <label class="drop" id="drop">
+      <input type="file" id="file" accept=".csv,.xlsx,.xls,.json">
+      <div class="upload-icon">↑</div>
+      <b>Drop dataset here</b>
+      <span>CSV · XLSX · XLS · JSON</span>
+    </label>
+    <div id="fileInfo" class="file-info hidden"></div>
+    <div class="sample-row"><button class="ghost" onclick="loadSample('iris')">Use Iris sample</button><button class="ghost" onclick="loadSample('moons')">Use Moons sample</button></div>
+  </div>
+
+  <div class="panel">
+    <h3>Preprocessing & settings</h3>
+    <div id="settingsDisabled" class="muted">Upload a dataset to enable controls.</div>
+    <div id="settings" class="hidden">
+      <label>Features</label><select id="columns" multiple></select>
+      <small>Leave all selected to use detected features. ID-like columns are automatically ignored.</small>
+      <div class="two">
+        <div><label>Clusters (K)</label><input id="clusters" type="number" min="2" max="10" value="3"></div>
+        <div><label>Affinity</label><select id="affinity"><option value="nearest_neighbors">Nearest Neighbors</option><option value="rbf">RBF</option></select></div>
+      </div>
+      <div class="two">
+        <div><label>Neighbors</label><input id="neighbors" type="number" min="2" max="50" value="10"></div>
+        <div><label>Gamma (RBF)</label><input id="gamma" type="number" min="0.01" step="0.1" value="1"></div>
+      </div>
+      <button class="primary full" onclick="runClustering()">Run Spectral Clustering ✦</button>
+    </div>
+  </div>
+</div>
+
+<div id="largeWarn" class="warning hidden"></div>
+
+<div id="dashboard" class="dashboard hidden">
+  <div class="metrics" id="metrics"></div>
+  <div class="insight-panel"><div><div class="eyebrow">Pattern discovery</div><h3>What did the model find?</h3></div><ul id="insights"></ul></div>
+
+  <div class="chart-grid">
+    <div class="chart"><div id="scatter"></div></div>
+    <div class="chart"><div id="distribution"></div></div>
+    <div class="chart wide"><div id="eigenvalues"></div></div>
+    <div class="chart wide"><div id="heatmap"></div></div>
+  </div>
+
+  <div class="panel comparison"><h3>Algorithm comparison</h3><div id="comparisonTable"></div></div>
+  <a id="download" class="download" href="#">↓ Download clustered CSV</a>
+</div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand"><span class="footer-logo">✦</span><div><strong>SpectraLab</strong><span>Pattern Discovery Workspace</span></div></div>
+    <div class="footer-tech"><span>Python</span><span>Flask</span><span>Scikit-learn</span><span>Plotly</span></div>
+    <div class="footer-credit">Created by <strong>Soumya Dhakate</strong> <span class="footer-id">(CM24050)</span></div>
+  </div>
+  <div class="footer-bottom">Spectral Clustering for Pattern Discovery · Explore data, discover structure.</div>
+</footer>
+<script src="/static/app.js"></script>
+</body>
+</html>
